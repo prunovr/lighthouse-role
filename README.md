@@ -1,6 +1,6 @@
 # Ansible-Lighthouse role
 
-[![GitHub tag (latest by date)]<https://img.shields.io/github/v/tag/prunovr/lighthouse-role>]
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/prunovr/lighthouse-role)
 
 Simple lighthouse deploy and management role.
 
