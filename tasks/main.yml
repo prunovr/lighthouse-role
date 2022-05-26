@@ -1,0 +1,26 @@
+---
+- include_tasks: nginx.yml
+- include_tasks: git.yml
+
+- name: Clone from git lighthouse
+  become: true
+  ansible.builtin.git:
+    repo: "{{ lighthouse_git_url }}"
+    dest: "{{ lighthouse_location_dir }}"
+    version: master
+
+- name: Create config for nginx
+  become: true
+  ansible.builtin.template:
+    src: templates/lighthouse.conf.j2
+    dest: /etc/nginx/sites-available/lighthouse.conf
+    mode: "0644"
+
+- name: Create link config in site-enabled for nginx
+  become: true
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/lighthouse.conf
+    dest: /etc/nginx/sites-enabled/lighthouse.conf
+    mode: "0644"
+    state: link
+  notify: Reload NGINX service
